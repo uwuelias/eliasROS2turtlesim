@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The purpose of this document is to provide a comprehensive overview of the software design for the ROS2 Turtle Sim. This includes the goal, controls, architecture, and implementation. 
+The purpose of this document is to provide a comprehensive overview of the software design for the ROS2 Turtle Sim. This includes the goal, controls, architecture, file structure, and implementation. 
 
 ## Goal
 
@@ -27,6 +27,22 @@ For the controls, we will be using termios so keypresses can be read immediately
 The Protobuf message will contain:
 - Linear velocity 
 - Angular velocity
+
+## File Structure
+```
+eliasROS2turtlesim
+├── DESIGN.md
+├── include
+│   └── turtle_controller.hpp
+├── proto
+│   └── turtle_command.proto
+├── README.md
+├── run.sh
+└── src
+    ├── CMakeLists.txt
+    ├── package.xml
+    └── turtle_controller.cpp
+```
 
 ## Implementation
 
