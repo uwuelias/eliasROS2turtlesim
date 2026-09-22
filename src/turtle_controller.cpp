@@ -83,45 +83,25 @@ void TurtleController::readKeyboard()
     char key;
 
     if (read(STDIN_FILENO, &key, 1) <= 0) {
+        // no key pressed this tick — check if we should stop
+        if (++ticks_since_key_ > STOP_AFTER_TICKS) {
+            stopTurtle();
+        }
         return;
     }
 
-    switch (key)
-    {
-        case 'w':
-        case 'W':
-            publishMovement(1.0, 0.0);
-            break;
+    ticks_since_key_ = 0;
 
-        case 's':
-        case 'S':
-            publishMovement(-1.0, 0.0);
-            break;
-
-        case 'a':
-        case 'A':
-            publishMovement(0.0, 1.0);
-            break;
-
-        case 'd':
-        case 'D':
-            publishMovement(0.0, -1.0);
-            break;
-
-        case 'q':
-        case 'Q':
+    switch (key) {
+        case 'w': case 'W': publishMovement(1.0, 0.0); break;
+        case 's': case 'S': publishMovement(-1.0, 0.0); break;
+        case 'a': case 'A': publishMovement(0.0, 1.0);  break;
+        case 'd': case 'D': publishMovement(0.0, -1.0); break;
+        case 'q': case 'Q':
             stopTurtle();
-
-            RCLCPP_INFO(
-                this->get_logger(),
-                "Exiting controller."
-            );
-
             rclcpp::shutdown();
             break;
-
-        default:
-            break;
+        default: break;
     }
 }
 
@@ -135,9 +115,6 @@ void TurtleController::publishMovement(
     message.angular.z = angular;
 
     publisher_->publish(message);
-
-    // stop after each individual command.
-    stopTurtle();
 }
 
 void TurtleController::stopTurtle()
