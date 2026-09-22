@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package turtlesim_control;
+
+message TurtleCommand {
+    double linear_velocity = 1;
+    double angular_velocity = 2;
+}

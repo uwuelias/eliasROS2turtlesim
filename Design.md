@@ -1,20 +1,37 @@
 # ROS2 Turtle Sim Design Doc
 
-## 1. Introduction
+## Introduction
 
-The purpose of this document is to provide a comprehensive overview of the software design for the ROS2 Turtle Sim. This includes the system overview, design considerations, detailed design, and testing plan.
+The purpose of this document is to provide a comprehensive overview of the software design for the ROS2 Turtle Sim. This includes the goal, controls, architecture, and implementation. 
 
-## System Overview
-[teleop_client] (plain c++, wasd inputs) --> [bridge_node]
+## Goal
 
-## Design Considerations
+The goal is to create a C++ ROS2 program that allows a user to control a TurtleSim turtle from the command line.
 
-- User-friendly interface
-- Zero bug
-- Simple
+## Controls
 
-## Detailed Design
+- W -- move forward
+- A -- rotate left
+- S -- move backward
+- D -- rotate right
+- Q -- quit
 
-## Testing Plan
+## Architecture
 
-Play the game!
+Keyboard Input --> Turtle Controller --> Protobuf TurtleCommand --> ROS2 Twist Message --> TurtleSim
+
+The project will use a single ROS2 node. The node will read keyboard input, create a protobuf command containing the desired velocities, convert that command into ROS2 Twist message, and BOOM, turtle move.
+
+For the controls, we will be using termios so keypresses can be read immediately without pressing enter. Each keypresses represent one movement. holding down the key = pressing the key
+
+The Protobuf message will contain:
+- Linear velocity 
+- Angular velocity
+
+## Implementation
+
+The project will be implemented in C++ using:
+- ROS2
+- TurtleSim
+- rclcpp
+- proto2ros
