@@ -51,3 +51,8 @@ The project will be implemented in C++ using:
 - TurtleSim
 - rclcpp
 - proto2ros
+
+## Run
+```Bash
+./run.sh
+```

@@ -6,14 +6,8 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(geometry_msgs REQUIRED)
 
-find_package(Protobuf REQUIRED)
-
 add_executable(turtle_controller
     turtle_controller.cpp
-)
-
-target_link_libraries(turtle_controller
-    protobuf::libprotobuf
 )
 
 ament_target_dependencies(
@@ -25,7 +19,7 @@ ament_target_dependencies(
 target_include_directories(
     turtle_controller
     PRIVATE
-    ${Protobuf_INCLUDE_DIRS}
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 install(
